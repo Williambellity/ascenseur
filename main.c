@@ -51,18 +51,24 @@ void DisplayBuilding(WINDOW *win, Building *b) {
         DisplayPersonList(win,b->waitingLists[i], level, right_wall + 2);
     }
 }
-int main() {
+int main2() {
     PersonList *list = createPersonList(createPerson(4,2));
+    
+    list = insert_end(createPerson(4,3), list);
+    
+     list = insert_end(createPerson(1,3), list);
+     printf("before delete");
     printPersonList(list);
-    list = insert(createPerson(4,3), list);
+    printf("start deleting");
+    list = delete_end(list);
     printPersonList(list);
-     list = insert(createPerson(1,3), list);
+    list = delete_end(list);
     printPersonList(list);
-    list = delete(createPerson(4,2), list);
+    list = delete_end(list);
     printPersonList(list);
 
 }
-int main2() {
+int main() {
     srand(time(NULL)); // should only be called once
     // generate list of waiting persons
     int nbFloor = 5;
@@ -74,7 +80,7 @@ int main2() {
         for(int j=0 ; j<nbPerson ; j++) {
             int dest = rand() % (nbFloor);
             Person *p = createPerson(currentFloor, dest);
-            waitingLists[currentFloor] = insert(p,waitingLists[currentFloor]);
+            waitingLists[currentFloor] = insert_end(p,waitingLists[currentFloor]);
         }
     }
 
@@ -101,14 +107,15 @@ int main2() {
             int level = input - '0';
         if(0 <= level && level < nbFloor) {
             building->elevator->targetFloor = level;
+            
         }
     }
-    // Update state machine of elevator !!!!
-    stepElevator(building);
-    wclear(win); // clear display area
-    box(win, 0,0); // display border of window
-    DisplayBuilding(win, building);
-    wrefresh(win); // actual display function
+        // Update state machine of elevator !!!!
+        stepElevator(building);
+        wclear(win); // clear display area
+        box(win, 0,0); // display border of window
+        DisplayBuilding(win, building);
+        wrefresh(win); // actual display function
     }
     endwin(); // correct ending of ncurses
     return 0;

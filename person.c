@@ -28,39 +28,74 @@ PersonList* createPersonList(Person* p) {
 
 void printPersonList(PersonList* list) {
     printf("[");
-    while (list->next != NULL) {
+    if (list != NULL ) {
+        while (list->next != NULL) {
+            printPerson(list->person);
+            printf(", ");
+            list = list->next;
+        }
         printPerson(list->person);
-        printf(", ");
-        list = list->next;
-    }
-    printPerson(list->person);
+    } 
     printf("]");
 }
 
-PersonList* insert(Person *p, PersonList *list) {
+PersonList* insert_start(Person *p, PersonList *list) {
 
     PersonList *new_list = MALLOC(sizeof(PersonList));
     new_list->person = p;
     new_list->next = list;
-
+    
     return new_list;
 }
 
-int len(PersonList *list) {
+PersonList* insert_end(Person *p, PersonList *list) {
+
+   
     PersonList *cursor = list;
-    int res = 0;
-    while (cursor->next != NULL) {
-        res++;
-        cursor = cursor->next;
+    PersonList *new_node = MALLOC(sizeof(Person));
+    new_node->person = p;
+    new_node->next = NULL;
+    if (list == NULL) {
+        list = new_node;
+    } else {
+        while (cursor->next != NULL) {
+            cursor = cursor->next;
+        }
+        cursor->next = new_node;
     }
-    res++;
-    return res;
+    return list;
 }
 
-PersonList *delete(Person *p, PersonList* list) {
-    if (list->person == p) {
-        return 
-    }
-    return insert(list->person, delete(p, list->next))
+int len(PersonList *list) {
+    if (list == NULL) {
+        PersonList *cursor = list;
+        int res = 0;
+        while (cursor->next != NULL) {
+            res++;
+            cursor = cursor->next;
+        }
+        res++;
+        return res;
+    } 
+    return 0;
+}
 
+PersonList *delete_start(PersonList* list) {
+    return list->next;
+}
+
+PersonList *delete_end(PersonList* list) {
+    PersonList *cursor = list;
+    if (cursor->next != NULL) {
+    
+        while (cursor->next->next != NULL) {
+            cursor = cursor->next;
+        }
+        cursor->next = NULL;
+        return list;
+    }
+    else {
+        free(list);
+        return NULL;
+    }
 }

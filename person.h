@@ -16,8 +16,10 @@ void printPerson(Person* p);
 
 PersonList* createPersonList(Person *p);
 void printPersonList(PersonList* list);
-PersonList* insert(Person *p, PersonList *list);
-PersonList* delete(Person *p, PersonList* list);
+PersonList* insert_start(Person *p, PersonList *list);
+PersonList* insert_end(Person *p, PersonList *list);
+PersonList* delete_start(PersonList* list);
+PersonList* delete_end(PersonList* list);
 int len(PersonList *list);
 
 #endif
