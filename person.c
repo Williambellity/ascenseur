@@ -67,7 +67,7 @@ PersonList* insert_end(Person *p, PersonList *list) {
 }
 
 int len(PersonList *list) {
-    if (list == NULL) {
+    if (list != NULL) {
         PersonList *cursor = list;
         int res = 0;
         while (cursor->next != NULL) {
@@ -81,7 +81,12 @@ int len(PersonList *list) {
 }
 
 PersonList *delete_start(PersonList* list) {
+    if (list != NULL) {
     return list->next;
+    } else {
+        return NULL;
+    }
+
 }
 
 PersonList *delete_end(PersonList* list) {

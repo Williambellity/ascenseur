@@ -39,32 +39,33 @@ PersonList* exitElevator(Elevator *e) {
 }
 
 PersonList* enterElevator(Elevator *e, PersonList *list) {
-    printf("test1");
-    int empty_places = len(e->persons);
-    printf("test2");
-    int len_waitingList = len(list);
-    printf("test3");
-    PersonList *cursor = list;
-    printf("test4");
+    // int empty_places = len(e->persons);
+    // int len_waitingList = len(list);
+   
+    PersonList *newWaitingList = list;
 
-    for (int i = 0; i < len_waitingList && empty_places > 0; i++) {
-        printf("test5");
-        e->persons = insert_start(cursor->person, e->persons);
-        empty_places--;
-        cursor = delete_start(cursor);
-    }
+    // for (int i = 0; i < len_waitingList && empty_places > 0; i++) {
+    //     e->persons = insert_start(cursor->person, e->persons);
+    //     cursor = cursor->next;
+    //     empty_places--;
+    //     cursor = delete_start(cursor);
+    // }
+    e->persons->person = newWaitingList->person;
 
-    return list;
+    newWaitingList = delete_start(newWaitingList);
+    
+   
+
+    return newWaitingList;
 
 }
 
 void stepElevator(Building *b) {
     if (b->elevator->targetFloor != b->elevator->currentFloor) {
         b->elevator->currentFloor = b->elevator->targetFloor;
-        b->elevator->persons = exitElevator(b->elevator);
-        printf("test4");
-        b->elevator->persons = enterElevator(b->elevator, b->waitingLists[0]);
-    }
+        // b->elevator->persons = exitElevator(b->elevator);
+        b->waitingLists[b->elevator->targetFloor] = enterElevator(b->elevator, b->waitingLists[b->elevator->targetFloor]);
+    } 
     
 
 
