@@ -100,7 +100,6 @@ PersonList *delete_end(PersonList* list) {
         return list;
     }
     else {
-        free(list);
         return NULL;
     }
 }
