@@ -51,23 +51,7 @@ void DisplayBuilding(WINDOW *win, Building *b) {
         DisplayPersonList(win,b->waitingLists[i], level, right_wall + 2);
     }
 }
-int main2() {
-    PersonList *list = createPersonList(createPerson(4,2));
-    
-    list = insert_end(createPerson(4,3), list);
-    
-     list = insert_end(createPerson(1,3), list);
-     printf("before delete");
-    printPersonList(list);
-    printf("start deleting");
-    list = delete_end(list);
-    printPersonList(list);
-    list = delete_end(list);
-    printPersonList(list);
-    list = delete_end(list);
-    printPersonList(list);
 
-}
 int main() {
     srand(time(NULL)); // should only be called once
     // generate list of waiting persons
